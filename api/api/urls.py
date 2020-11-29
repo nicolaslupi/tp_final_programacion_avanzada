@@ -6,5 +6,6 @@ from spampi import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("process_email/", views.process_email)
+    path("process_email/", views.process_email),
+    path("history/<int:N_EMAILS>/", views.history),
 ]
