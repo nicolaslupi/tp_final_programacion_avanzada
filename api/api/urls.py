@@ -11,4 +11,7 @@ urlpatterns = [
     path('quota_info/', views.quota_info.as_view()),
     path("process_email/", views.process_email.as_view()),
     path("history/<int:N_EMAILS>/", views.history.as_view()),
+    path("get_mails/", views.get_mails.as_view()),
+    path("get_profiles/", views.get_profiles.as_view()),
+    path("get_users/", views.get_users.as_view()),
 ]

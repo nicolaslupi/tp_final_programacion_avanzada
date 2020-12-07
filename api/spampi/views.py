@@ -3,7 +3,8 @@
 from django.http import HttpResponse, JsonResponse
 from rest_framework.parsers import JSONParser
 from .models import Mail, Profile
-from .serializers import MailSerializer
+from django.contrib.auth.models import User
+from .serializers import MailSerializer, ProfileSerializer, UserSerializer
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -70,4 +71,44 @@ class history(APIView):
         usuario = request.user
         mails = Mail.objects.filter(user = usuario).order_by("-created_at")[:N_EMAILS] # El menos adelante para que traiga los últimos
         serializer = MailSerializer( mails, many=True )
-        return Response( serializer.data )
+        return Response( serializer.data, status=status.HTTP_200_OK )
+
+
+class get_mails(APIView):
+    """
+    Trae todos los mails cargados, solo si soy superuser
+    """
+    def get(self, request):
+        if request.user.is_superuser:
+            mails = Mail.objects.all()
+            serializer = MailSerializer(mails, many=True)
+            return Response( serializer.data, status=status.HTTP_200_OK )
+        else:
+            response = {'result':'fail', 'message':'Not a superuser'}
+            return Response(response, status=status.HTTP_400_BAD_REQUEST)
+
+class get_profiles(APIView):
+    """
+    Trae los perfiles de los usuarios, si soy superuser
+    """
+    def get(self, request):
+        if request.user.is_superuser:
+            profiles = Profile.objects.all()
+            serializer = ProfileSerializer(profiles, many=True)
+            return Response( serializer.data, status=status.HTTP_200_OK )
+        else:
+            response = {'result':'fail', 'message':'Not a superuser'}
+            return Response(response, status=status.HTTP_400_BAD_REQUEST)
+
+class get_users(APIView):
+    """
+    Trae los perfiles de los usuarios, si soy superuser
+    """
+    def get(self, request):
+        if request.user.is_superuser:
+            users = User.objects.all()
+            serializer = UserSerializer(users, many=True)
+            return Response( serializer.data, status=status.HTTP_200_OK )
+        else:
+            response = {'result':'fail', 'message':'Not a superuser'}
+            return Response(response, status=status.HTTP_400_BAD_REQUEST)
