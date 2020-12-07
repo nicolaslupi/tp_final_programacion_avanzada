@@ -24,11 +24,19 @@ class Profile(models.Model):
 
 
 class Mail(models.Model):
+    # esto es el mail que manda el usuario
     text = models.TextField()
+    # spam o ham
     result = models.CharField(max_length=10)
+    # ??? puede que sea para otra cosa?
     status = models.CharField(max_length=10)
+    # esto sirve para hacer query de mails mas recientes procesados
     created_at = models.DateTimeField(default=now)
-    user = models.ForeignKey(User, blank=True, default=None, on_delete=models.CASCADE)
-    
+
+    user = models.ForeignKey(
+        User, blank=True, default=None, on_delete=models.CASCADE
+    )
+
     def __str__(self):
-        return self.text # Para que en el admin se visualice el text de los mails
+        # Para que en el admin se visualice el text de los mails
+        return self.text
