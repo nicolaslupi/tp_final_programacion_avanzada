@@ -1,7 +1,9 @@
 import streamlit as st
 import utils
+from datetime import timedelta, datetime
+from pytz import UTC
 
-mails, profiles, users = utils.extract_data("perm")
+mails, profiles, users_joined, mails_date = utils.extract_data()
 st.title("Dashboard API Procesamiento de Mails")
 
 st.sidebar.header("Parámetros para visualizar")
@@ -34,37 +36,37 @@ date_start = st.sidebar.date_input(
 )
 if date_start < min_date:
     st.error(f"Error: La fecha mínima es {min_date}")
+else:
+    date_start = UTC.localize(
+        datetime.combine(date_start, datetime.min.time())
+    )
 
 date_end = st.sidebar.date_input(
-    "Fecha de fin (hasta)",
+    "Fecha de fin (hasta, inclusive)",
     max_date
 )
 if date_end > max_date:
     st.error(f"Error: La fecha máxima es {max_date}")
+else:
+    date_end = UTC.localize(
+        datetime.combine(date_end, datetime.min.time())
+    ) + timedelta(days=1)
 
 if st.sidebar.button("Aplicar cambios"):
     if show_general == "Mostrar":
-        st.subheader("Información general sobre API")
-        joined_by_date = utils.overview_info(users)
-        st.plotly_chart(joined_by_date)
+        utils.overview_info(users_joined)
     elif show_general == "No Mostrar":
         pass
-    initial = False
     if len(user_choice) == 0:
-        st.write("vistazo general")
-        fig = utils.general_view(mails, profiles)
-        st.subheader("Histograma de Largo de Mails")
-        st.plotly_chart(fig)
+        utils.general_view(
+            mails, profiles, mails_date, type_choice, date_start, date_end
+        )
     else:
-        st.write("usuarios seleccionados")
-        st.write(f"Mostrando resultados para usuario {user_choice}")
-        fig = utils.user_view(mails, profiles, user_choice)
-        st.plotly_chart(fig)
+        utils.user_view(
+            mails, profiles, mails_date, user_choice, type_choice,
+            date_start, date_end
+        )
 else:
-    # gráficos default al entrar
-    st.subheader("Información general sobre API")
-    joined_by_date = utils.overview_info(users)
-    st.plotly_chart(joined_by_date)
-    fig = utils.general_view(mails, profiles)
-    st.subheader("Histograma de Largo de Mails")
-    st.plotly_chart(fig)
+    # ejecución default al entrar
+    utils.overview_info(users_joined)
+    utils.entrypoint_view(mails, profiles, mails_date)

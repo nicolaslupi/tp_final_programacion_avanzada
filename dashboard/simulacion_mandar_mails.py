@@ -2,8 +2,8 @@
 import requests
 import json
 
-usuarios = ["usuario_01", "usuario_02", "usuario_03"]
-contrasenas = ["prueba_01", "prueba_02", "prueba_03"]
+usuarios = ["usuario_01", "usuario_02", "usuario_03", "ezeray"]
+contrasenas = ["prueba_01", "prueba_02", "prueba_03", "ezequiel01"]
 
 mails = [
     [
@@ -25,12 +25,21 @@ mails = [
         "Hi Tom, Does sunday sound good for the barbeque? Love, Dad",
         "hello mary, does 1 o'clock work for the meeting? I have to run "
         "some errands before that. best regards, johanne",
+    ],
+    [
+        "Cash your inheritance following three easy steps! Contact us "
+        "or you'll regret not taking this chance!!!",
+        "Hello Barry, What do you think of monday at noon for a quick "
+        "meeting about the new process? Best regards, John",
+        "hi nico, what do you think about friday night for the movies?"
+        " can you buy the tickets? talk to you later, ezequiel"
     ]
 ]
 
 login_url = "http://localhost:8000/api-token-auth/"
 base_url = "http://localhost:8000/"
-for i in range(3):
+for i in range(4):
+    print(usuarios[i])
     auth_data = {
         "username": usuarios[i],
         "password": contrasenas[i]
@@ -39,6 +48,7 @@ for i in range(3):
     token = json.loads(res.content.decode("utf-8"))["token"]
     headers = {"Authorization": f"JWT {token}"}
     for m in mails[i]:
+        print(m)
         requests.post(
             f"{base_url}process_email/",
             json={"text": m},
