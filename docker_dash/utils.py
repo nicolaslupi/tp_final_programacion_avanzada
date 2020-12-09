@@ -9,19 +9,22 @@ from numpy import cumsum
 
 @st.cache
 def extract_data():
-    login_url = "http://localhost:8000/api-token-auth/"
+    #login_url = "http://localhost:8501/api-token-auth/"
+    login_url = "http://api-dev2.us-east-1.elasticbeanstalk.com/api-token-auth/"
     # Usuario --> 'admin'
     # Contra --> 'usuario01'
     user_info = {
-        "username": "admin_01",
-        "password": "sysadmin1234"
+        #"username": "admin_01",
+        "username": "admin",
+        #"password": "sysadmin1234"
+        "password": "usuario01"
     }
     # get token
     res = post(login_url, user_info)
     token = loads(res.content.decode("utf-8"))["token"]
     headers = {"Authorization": f"JWT {token}"}
     # extract mails
-    base_url = "http://localhost:8000/"
+    base_url = "http://api-dev2.us-east-1.elasticbeanstalk.com/"
     res = get(f"{base_url}get_mails", headers=headers)
     mails = loads(res.content.decode("utf-8"))
     mails = DataFrame(mails)
