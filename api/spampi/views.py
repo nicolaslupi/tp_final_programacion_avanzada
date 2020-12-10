@@ -32,7 +32,7 @@ class quota_info(APIView):
         procesados = perfil.original_quota - disponibles
         response = {
             'procesados': procesados,
-            'disponibles': disponibles
+            'disponible': disponibles
         }
         return Response(response, status=status.HTTP_200_OK)
 
@@ -67,7 +67,7 @@ class process_email(APIView):
                 # Al request le aplican r.json() y visualizan esta respuesta
                 return Response(response, status=status.HTTP_200_OK)
             else:
-                response = {'result': 'fail', 'message': 'No quota left'}
+                response = {'status': 'fail', 'message': 'No quota left'}
                 return Response(response, status=status.HTTP_400_BAD_REQUEST)
         else:
             return JsonResponse(
