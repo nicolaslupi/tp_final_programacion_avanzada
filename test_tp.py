@@ -3,7 +3,7 @@
 # SPAM y HAM ahora son Spam y Ham
 # paso de ser 'OK' a ser 'OK'
 # Ejemplo:  'http://migrupo.us-west-1.elasticbeanstalk.com/'
-HOST = "http://localhost:8000/"
+HOST = "http://api-dev2.us-east-1.elasticbeanstalk.com/"
 
 PASSWORD_BIG = 'contrabig01'
 PASSWORD_SMALL = 'contrasmall01'

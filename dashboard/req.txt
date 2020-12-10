@@ -1,4 +1,4 @@
+streamlit==0.63
 pandas
-streamlit
 plotly
 numpy
