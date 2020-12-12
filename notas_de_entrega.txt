@@ -1,0 +1,21 @@
+Grupo Parsing! at the Disco.
+
+Notas sobre la entrega.
+
+La imagen de docker es demasiado grande como para pasarla por mail, o hasta por
+drive (la imagen pesa cerca de 1.5 GB).
+Para solucionar esto, creamos un repositorio en hub.docker.com, para que puedan
+pullearlo de ahí mismo. También incluimos el Dockerfile por si prefieren hacer
+un build.
+
+Para trabajar en el proyecto, también usamos un repo en github, y compartimos
+el link por si quieren verlo, o ante la posibilidad de que nos hayamos
+olvidado alguna parte.
+
+LINKS:
+
+Docker image:
+https://hub.docker.com/repository/docker/ezeray/api_streamlit_dashboard
+
+Github:
+https://github.com/lipinoelbreve/tp_final_programacion_avanzada
