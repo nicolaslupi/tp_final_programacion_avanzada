@@ -19,3 +19,9 @@ https://hub.docker.com/repository/docker/ezeray/api_streamlit_dashboard
 
 Github:
 https://github.com/lipinoelbreve/tp_final_programacion_avanzada
+
+URL de api:
+http://parsing-disco-api.us-east-1.elasticbeanstalk.com/
+
+Directorio de drive:
+https://drive.google.com/drive/u/1/folders/1utmbCknec7G-z83r0zmUkkKYK4_g2hst
